@@ -12,4 +12,5 @@ __pycache__/
 # Other common ignore patterns for Django projects
 .env
 venv/
+sunyenv/
 *.log
