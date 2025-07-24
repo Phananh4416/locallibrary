@@ -57,8 +57,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware' # Middleware for language support
+    'django.middleware.locale.LocaleMiddleware', # Middleware for language support
 ]
+X_FRAME_OPTIONS = os.getenv('X_FRAME_OPTIONS', 'DENY')
+# Cấu hình bảo mật cho HTTPS
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = os.getenv('SECURE_HSTS_SECONDS', 3600)  # Thời gian HSTS, mặc định là 1 giờ
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True # Cẩn thận khi bật, chỉ khi chắc chắn về HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # Nếu dùng proxy ngược
 
 # Cấu hình WhiteNoise để nén và cache static files
 STORAGES = {
