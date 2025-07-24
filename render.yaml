@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: locallibrary
+    env: python
+    buildCommand: |
+      cd locallibrary
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: PYTHONPATH=./locallibrary gunicorn locallibrary.wsgi:application
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: locallibrary.settings
+      - key: PYTHONPATH
+        value: ./locallibrary
+      - key: DATABASE_URL
+        value: postgresql://locallibrary_db_l6c2_user:7hBYhm5Ts76jyiRvNUp0D7SIaZtDRMlC@dpg-d2075o6mcj7s73aqab00-a/locallibrary_db_l6c2
+      - key: SECRET_KEY
+        value: django-insecure-u$p1@!t+bw_p0kn^k!67kyybqk9w4w@#npc_r1)a76-m%o0x=q
